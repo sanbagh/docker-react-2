@@ -1,0 +1,13 @@
+language: generic
+services:
+  - docker
+before_install:
+  - docker build -t sanbagh/docker-react -f Dockerfile.dev .
+script:
+  - docker run -e CI=true sanbagh/docker-react npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+  app: docker-react
+  on: master
